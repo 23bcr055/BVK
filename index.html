@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eye Scroll Section</title>
+
+<style>
+:root {
+  --color-bg: #fff;
+  --color-fg: #000;
+}
+
+/* ========================= */
+/* GLOBAL RESET AND BODY */
+/* ========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, serif;
+}
+
+/* ========================= */
+/* HERO VIDEO */
+/* ========================= */
+.hero {
+  position: relative;
+  height: 65vh;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.hero .content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  max-width: 700px;
+  padding: 80px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  margin-bottom: 30px;
+}
+
+.btn {
+  padding: 14px 32px;
+  background: #b7c300;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ========================= */
+/* EYE SCROLL SECTION */
+/* ========================= */
+.eye-section {
+  position: relative;
+  min-height: 300vh;
+  background: white;
+}
+
+/* FIXED EYES ONLY IN THIS SECTION */
+.eye-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.eye {
+  width: 6rem;
+  aspect-ratio: 1;
+  border: 0.2rem solid var(--color-fg);
+  border-radius: 50%;
+  background: var(--color-bg);
+  position: relative;
+  mix-blend-mode: difference;
+}
+
+.eye__iris {
+  width: 40%;
+  aspect-ratio: 1;
+  background: var(--color-fg);
+  border-radius: 50%;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* CONTENT STACK */
+.eye-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* EACH SCROLL STEP */
+.step {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
+}
+
+.step h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.step p {
+  max-width: 650px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* SCROLL ANIMATIONS */
+@supports (animation-timeline: scroll()) {
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes section-bg {
+    0% { background: #d65656; }
+    25% { background: #f3d662; }
+    50% { background: #73d1ee; }
+    75% { background: #9f60e2; }
+    100% { background: #cf5a5a; }
+  }
+
+  .eye-section {
+    animation: section-bg linear both;
+    animation-timeline: scroll();
+    animation-range: 0% 100%;
+  }
+
+  .eye {
+    animation: spin linear both;
+    animation-timeline: scroll();
+    animation-range: 0% 100%;
+  }
+}
+
+/* ========================= */
+/* CONTENT BOX */
+/* ========================= */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3em 1em;
+  min-height: 50vh;
+}
+
+/* MARQUEE */
+.marquee {
+  position: relative;
+  width: 100%;
+  font-size: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 2em;
+}
+
+.marquee_text {
+  position: absolute;
+  min-width: 100%;
+  white-space: nowrap;
+  animation: marquee 16s linear infinite;
+  font-weight: bold;
+}
+
+.marquee_blur {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(151, 139, 105);
+  background-image:
+    linear-gradient(to right, white 1rem, transparent 50%),
+    linear-gradient(to left, white 1rem, transparent 50%);
+  filter: contrast(15);
+}
+
+.marquee_blur .marquee_text {
+  filter: blur(0.04em);
+}
+
+.marquee_clear {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes marquee {
+  from { transform: translateX(70%); }
+  to { transform: translateX(-70%); }
+}
+
+.text {
+  margin-block: 2em;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ========================= */
+/* GLIDE TO REVEAL CODE SECTION */
+/* ========================= */
+section.code-section {
+  background-color:rgb(255, 255, 255);
+  display: grid;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+section.code-section p {
+  font-size: 2.8rem;
+  background: linear-gradient(hsl(205, 79%, 16%), hsl(141, 22%, 24%));
+  color: transparent;
+  background-clip: text;
+}
+
+.code {
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: center;
+  color: hsl(0, 0%, 0%);
+  border-radius: 1rem;
+  background: hsl(95, 34%, 74%);
+  box-shadow: 0 1px hsl(0 0% 100% / 0.25) inset;
+  flex-wrap: nowrap;
+}
+
+.code:hover { cursor: grab; }
+
+.digit {
+  display: flex;
+  height: 100%;
+  padding: 5rem 1rem;
+}
+
+.digit:focus-visible {
+  outline-color: hsl(0 0% 50% / 0.25);
+  outline-offset: 1rem;
+}
+
+.digit span {
+  scale: calc(var(--active, 0) + 0.5);
+  filter: blur(calc((1 - var(--active, 0)) * 1rem));
+  transition: scale calc(((1 - var(--active, 0)) + 0.2) * 1s),
+              filter calc(((1 - var(--active, 0)) + 0.2) * 1s);
+}
+
+.digit:first-of-type { padding-left: 5rem; }
+.digit:last-of-type { padding-right: 5rem; }
+
+:root {
+  --lerp-0: 1;
+  --lerp-1: calc(sin(50deg));
+  --lerp-2: calc(sin(45deg));
+  --lerp-3: calc(sin(35deg));
+  --lerp-4: calc(sin(25deg));
+  --lerp-5: calc(sin(15deg));
+}
+
+.digit:is(:hover, :focus-visible) { --active: var(--lerp-0); }
+.digit:is(:hover, :focus-visible) + .digit,
+.digit:has(+ .digit:is(:hover, :focus-visible)) { --active: var(--lerp-1); }
+.digit:is(:hover, :focus-visible) + .digit + .digit,
+.digit:has(+ .digit + .digit:is(:hover, :focus-visible)) { --active: var(--lerp-2); }
+.digit:is(:hover, :focus-visible) + .digit + .digit + .digit,
+.digit:has(+ .digit + .digit + .digit:is(:hover, :focus-visible)) { --active: var(--lerp-3); }
+.digit:is(:hover, :focus-visible) + .digit + .digit + .digit + .digit,
+.digit:has(+ .digit + .digit + .digit + .digit:is(:hover, :focus-visible)) { --active: var(--lerp-4); }
+.digit:is(:hover, :focus-visible) + .digit + .digit + .digit + .digit + .digit,
+.digit:has(+ .digit + .digit + .digit + .digit + .digit:is(:hover, :focus-visible)) { --active: var(--lerp-5); }
+
+
+
+
+
+.why-choose-us {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: #ded5ff;
+}
+
+.why-choose-us h2 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(90deg, #b7c300, #f3d662);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.features {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  justify-items: center;
+}
+
+.feature {
+  background: white;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.feature img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.feature h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.3rem;
+}
+
+.feature p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+
+.listar-map-button {
+  width: 100%;
+  position: absolute;
+  display: table;
+  right: 0;
+  top: 0;
+  height: 150px;
+  line-height: 150px;
+  white-space: nowrap;
+  font-size: 0;
+}
+
+.listar-map-button {
+  right: auto;
+  /***
+    box-shadow: 0 0 65px rgba(0,0,0,.07) inset, 0 0 35px rgba(0,0,0,.05) inset;**/
+}
+
+.listar-map-button-text span {
+  background-color: #fff;
+  color: #252525;
+  text-shadow: none;
+}
+
+.listar-page-header-content .listar-map-button-text span {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 15px;
+  height: 44px;
+  line-height: 1.6;
+  padding: 10px 20px;
+  box-shadow: 0 0 300px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 0, 0, 0.06);
+  border-radius: 50px;
+  background-color: rgba(35, 40, 45, 0.9);
+  color: #fff;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+.listar-feature-item-wrapper {
+  margin-bottom: 120px;
+  padding-left: 27px;
+  padding-right: 27px;
+}
+
+.listar-feature-item {
+  height: calc(100% - 20px);
+}
+
+.listar-feature-item.listar-feature-has-link
+  ~ .listar-feature-fix-bottom-padding.listar-fix-feature-arrow-button-height {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 30px;
+}
+
+.listar-feature-item a {
+  position: absolute;
+  top: -12px;
+  left: 15px;
+  width: calc(100% - 30px);
+  height: calc(100% + 4px);
+  border-radius: 1000px;
+  z-index: 10;
+}
+
+.listar-feature-with-image .listar-feature-item a:before {
+  content: "";
+  position: absolute;
+  top: -74px;
+  left: 50%;
+  margin-left: -74px;
+  width: 148px;
+  height: 148px;
+  border-radius: 1000px;
+  z-index: 10;
+}
+
+
+.listar-feature-item .listar-feature-item-inner {
+  padding: 50px 30px;
+  border-radius: 6px;
+  z-index: 5;
+  position: relative;
+  height: 80%;
+}
+
+.listar-feature-item .listar-feature-item-inner {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.listar-feature-item .listar-feature-item-inner:before {
+  border: 0;
+  box-shadow: 120px 0px 150px rgba(80, 80, 80, 0.15),
+    10px 0px 10px rgba(80, 80, 80, 0.02);
+  border-radius: 1000px;
+  background: rgba(255, 255, 255, 0);
+  background: -moz-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right top,
+    color-stop(0%, rgba(255, 255, 255, 0)),
+    color-stop(40%, rgba(255, 255, 255, 0)),
+    color-stop(100%, rgba(255, 255, 255, 1))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#ffffff',GradientType=1);
+}
+
+.listar-feature-item .listar-feature-item-inner:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.listar-feature-right-border {
+  position: absolute;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  top: -12px;
+  left: 50%;
+  overflow: hidden;
+}
+
+.listar-feature-items {
+  text-align: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.listar-feature-right-border:before,
+.listar-hovering-features
+  .listar-feature-item
+  a:hover
+  ~ .listar-feature-item-inner
+  .listar-feature-right-border:before {
+  border: 11px solid #2f53bf;
+}
+
+.listar-feature-right-border:before,
+.listar-hovering-features
+  .listar-feature-item
+  a:hover
+  ~ .listar-feature-item-inner
+  .listar-feature-right-border:before,
+.listar-hovering-features-grey
+  .listar-feature-item
+  a:hover
+  ~ .listar-feature-item-inner
+  .listar-feature-right-border:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 11px solid #258bd5;
+  border-radius: 800px;
+  left: -50%;
+}
+
+.listar-feature-item .listar-feature-block-content-wrapper {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  margin: -30px;
+  padding: 30px;
+  height: calc(100% + 100px);
+}
+
+.listar-features-design-2 .listar-feature-item-wrapper {
+  margin-bottom: 120px;
+  padding-left: 27px;
+  padding-right: 27px;
+}
+
+.listar-feature-item.listar-feature-has-link .listar-feature-item-inner:after {
+  content: "";
+  background-color: #fff;
+  z-index: 6;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.listar-feature-icon-wrapper {
+  width: 148px;
+  height: 148px;
+  line-height: 148px;
+  border-radius: 500px;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.06);
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  left: 50%;
+  vertical-align: middle;
+  margin-left: -74px;
+  top: -66px;
+  margin-top: -74px;
+}
+
+.listar-feature-icon-inner {
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  border-radius: 500px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.14);
+  background: #fff;
+}
+
+.listar-feature-icon-inner div {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: left;
+}
+
+.listar-feature-icon-inner img {
+  position: relative;
+  margin: 0 auto;
+  vertical-align: middle;
+  display: inline-block;
+  width: auto;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  -moz-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  -o-transform: translate(-50%);
+  transform: translate(-50%);
+  height: 55px;
+}
+
+.listar-feature-item img,
+.listar-feature-item i {
+  position: relative;
+  display: inline-block;
+  border-bottom: 0;
+  font-size: 40px;
+  top: 0;
+  padding: 0;
+  color: #258bd5;
+}
+
+.listar-feature-with-image .listar-feature-content-wrapper {
+  top: 0;
+}
+.listar-feature-content-wrapper {
+  position: relative;
+  margin-top: -15.5px;
+}
+
+.listar-feature-item .listar-feature-item-title {
+  padding-top: 0;
+  margin: 0 0 30px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.listar-feature-item
+  .listar-feature-item-title.listar-feature-counter-added
+  > span {
+  margin-left: 20px;
+  border-radius: 0 30px 30px 0;
+}
+
+.listar-feature-item .listar-feature-item-title > span {
+  box-shadow: 15px 20px 30px rgba(80, 80, 80, 0.12),
+    5px 0px 40px rgba(80, 80, 80, 0.1);
+  padding: 10px 20px;
+  display: inline-block;
+  position: relative;
+  background-color: #fff;
+}
+
+.listar-feature-item .listar-feature-item-title > span span {
+  box-shadow: 15px 15px 30px rgba(80, 80, 80, 0.2),
+    5px 0px 80px rgba(80, 80, 80, 0.15);
+  padding: 10px 0;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 30px;
+  white-space: nowrap;
+  position: absolute;
+  top: -3px;
+  left: -40px;
+  border-radius: 50px;
+  background-color: #fff;
+}
+
+.listar-feature-item .listar-feature-item-title span {
+  display: inline-block;
+  font-size: 14px;
+  line-height: normal;
+  font-weight: 300;
+  text-shadow: none;
+  border-radius: 50px;
+  color: #252525;
+  font-size: 16px;
+}
+
+.listar-feature-item-excerpt {
+  padding: 0 20px;
+}
+
+.listar-feature-item-excerpt {
+  color: #252525;
+  position: relative;
+  top: 0;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pset {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.listar-map-button-text span {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 15px;
+  height: 44px;
+  line-height: 1.6;
+  padding: 10px 25px;
+  box-shadow: 0 0 31px rgba(0, 0, 0, 0.65), 0 0 4px rgba(0, 0, 0, 0.06);
+  border-radius: 50px;
+  background-color: rgba(35, 40, 45, 0.9);
+  color: #fff;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.listar-map-button-text span {
+  background-color: #fff;
+  color: #252525;
+  text-shadow: none;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+.listar-map-button-text span:after {
+  border: 12px solid #fff;
+}
+
+.listar-map-button-text span:after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  width: calc(100% + 28px);
+  height: calc(100% + 28px);
+  border-radius: 30px;
+}
+
+.listar-map-button:hover .listar-map-button-text span {
+  padding: 10px 43px 10px 51px;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+.listar-feature-with-image .listar-feature-item a:before {
+  content: "";
+  position: absolute;
+  top: -74px;
+  left: 50%;
+  margin-left: -74px;
+  width: 130px;
+  height: 130px;
+  border-radius: 1000px;
+  z-index: 10;
+}
+
+.listar-feature-item.listar-feature-has-link .listar-feature-item-inner:after {
+  margin-left: -25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 10px 10px 40px rgba(80, 80, 80, 0.15),
+    15px 15px 30px rgba(80, 80, 80, 0.05), 0 0 120px rgba(80, 80, 80, 0.6);
+  bottom: -30px;
+  background-image: url("https://image.flaticon.com/icons/svg/2316/2316674.svg");
+  background-size: 40%;
+  color: #555;
+  line-height: 40px;
+}
+
+.col-lg-1,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-sm-1,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-xs-1,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12 {
+  align-self: flex-start;
+}
+
+
+
+
+.box {
+	display: flex;
+  align-items:center;
+}
+
+.box .inner {
+	width: 400px;
+	height: 200px;
+	line-height: 200px;
+	font-size: 4em;
+	font-family: sans-serif;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.box .inner:first-child {
+	background-color: indianred;
+	color: darkred;
+	transform-origin: right;
+	transform: perspective(100px) rotateY(-15deg);
+}
+
+.box .inner:last-child {
+	background-color: lightcoral;
+	color: antiquewhite;
+	transform-origin: left;
+	transform: perspective(100px) rotateY(15deg);
+}
+
+.box .inner span {
+	position: absolute;
+	animation: marquee 5s linear infinite;
+}
+
+.box .inner:first-child span {
+	animation-delay: 2.5s;
+	left: -100%;
+}
+
+@keyframes marquee {
+	from {
+		left: 100%;
+	}
+
+	to {
+		left: -100%;
+	}
+}
+
+
+/* Container: side by side */
+.founder-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px; /* space between text and image */
+  padding: 40px;
+  background: #739cc6;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+/* Text side */
+.founder-text {
+  flex: 1; /* take half width */
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.founder-text h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Image side */
+.founder-image {
+  flex: 1; /* take half width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.founder-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+/* Optional hover effect */
+.founder-image img:hover {
+  transform: scale(1.05);
+}
+
+.cam {
+  padding: 40px;
+  text-align: center;
+}
+
+.cam h1 {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+/* Container for images */
+.campus-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Image box */
+.campus-box {
+  position: relative;
+  width: 450px;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  text-decoration: none;
+}
+
+/* Image */
+.campus-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* School name overlay */
+.campus-name {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Hover effects */
+.campus-box:hover img {
+  transform: scale(1.1);
+}
+
+.campus-box:hover .campus-name {
+  background: rgba(25, 118, 210, 0.85);
+}
+
+
+</style>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="215475.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>Limitless Education<br>for Limitless Girls</h1>
+    <p>Empowering students with confidence and resilience.</p>
+    <a href="#" class="btn">Bharathi Vidhyalaya</a>
+  </div>
+</section>
+<br><br>
+
+
+
+<section class="cam">
+<h1 align="center">Our Campus</h1><br><br>
+<a href="school1.html">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="school1.jpg" height="350" width="450"></a>
+<a href="school2.html">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="school2.jpg" height="350" width="450"></a>
+</section>
+<br><br>
+
+
+
+<!-- EYE SCROLL SECTION -->
+<section class="eye-section">
+  <div class="eye-wrapper">
+    <div class="eye"><div class="eye__iris"></div></div>
+    <div class="eye"><div class="eye__iris"></div></div>
+  </div>
+  <div class="eye-content">
+    <div class="step">
+      <h2>Learning That Evolves</h2>
+      <p>As students grow, our environment adapts — inspiring curiosity, creativity, and confidence at every stage.</p>
+    </div>
+    <div class="step">
+      <h2>Strong Academic Foundation</h2>
+      <p>A structured curriculum that builds clarity in concepts, critical thinking, and lifelong learning habits.</p>
+    </div>
+    <div class="step">
+      <h2>Values Beyond Classrooms</h2>
+      <p>We nurture discipline, empathy, leadership, and respect — shaping responsible citizens for tomorrow.</p>
+    </div>
+    <div class="step">
+      <h2>Creative & Active Minds</h2>
+      <p>From arts and sports to innovation labs, students explore their talents beyond textbooks.</p>
+    </div>
+    <div class="step">
+      <h2>Preparing for the Future</h2>
+      <p>Technology-integrated learning equips students with skills needed for higher education and global opportunities.</p>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+  <div class="marquee">
+    <div class="marquee_blur" aria-hidden="true">
+      <p class="marquee_text">About Bharathi Vidhyalaya</p>
+    </div>
+    <div class="marquee_clear">
+      <p class="marquee_text">About Bharathi Vidhyalaya</p>
+    </div>
+  </div>
+  <p class="text">
+    The BVK school of any race, color, religion, national and ethnic origin, legally protected status to all the rights, privileges, programs and activities generally accorded or made available to students at the school. It does not discriminate on the basis of race, color, religion, national and ethnic origin, other legally protected status in its hiring or in the administration of its educational policies and programs, admissions policies, financial aid programs or other school-administered programs. 
+    As such, the school will consider any candidate for admission who identifies as a girl. Once admitted to Archer, all students in good academic standing who abide by Archer’s code of conduct and who meet requirements for graduation will be eligible to receive an Archer diploma, regardless of any change in sexual identity or other legally protected status.
+  </p>
+</div>
+
+<section class="code-section">
+  <p>Testimonials</p>
+  <ul class="code">
+    <li tabindex="0" class="digit">
+      <span>
+        <strong>Aarav</strong>
+        <p style="font-size:0.9rem;margin-top:5px;">"BVK has helped me grow academically and personally.<br>They teached good values"</p>
+      </span>
+    </li>
+    <li tabindex="0" class="digit">
+      <span>
+        <strong>Diya</strong>
+        <p style="font-size:0.9rem;margin-top:5px;">"The teachers are amazing and always supportive.<br>Very freindly staffs"</p>
+      </span>
+    </li>
+    <li tabindex="0" class="digit">
+      <span>
+        <strong>Rohan</strong>
+        <p style="font-size:0.9rem;margin-top:5px;">"I love the creative and extracurricular activities here."</p>
+      </span>
+    </li>
+    <li tabindex="0" class="digit">
+      <span>
+        <strong>Sanya</strong>
+        <p style="font-size:0.9rem;margin-top:5px;">"The environment here encourages me to explore my talents."</p>
+      </span>
+    </li>
+    <li tabindex="0" class="digit">
+      <span>
+        <strong>Aditya</strong>
+        <p style="font-size:0.9rem;margin-top:5px;">"I feel confident and ready for the future."</p>
+      </span>
+    </li>
+  </ul>
+</section>
+
+
+<!-- WHY CHOOSE US -->
+<section class="why-choose-us">
+  <h2>Why Choose Us</h2>
+<div class="pset">
+  <div class="container">
+    <div class="row listar-feature-items">
+
+      <div class="col-xs-12 col-sm-6 col-md-4 listar-feature-item-wrapper listar-feature-with-image listar-height-changed" data-aos="fade-zoom-in" data-aos-group="features" data-line-height="25.2px">
+        <div class="listar-feature-item listar-feture-has-link">
+
+  
+
+          <div class="listar-feature-item-inner">
+
+            <div class="listar-feature-right-border"></div>
+
+            <div class="listar-feature-block-content-wrapper">
+              <div class="listar-feature-icon-wrapper">
+                <div class="listar-feature-icon-inner">
+                  <div>
+                    <img alt="Businesses" class="listar-image-icon" src="https://cdn-icons-png.flaticon.com/128/921/921591.png">
+                  </div>
+                </div>
+              </div>
+
+              <div class="listar-feature-content-wrapper" style="padding-top: 0px;">
+
+                <div class="listar-feature-item-title listar-feature-counter-added">
+                  <span><span>01</span>
+                    Businesses </span>
+                </div>
+
+                <div class="listar-feature-item-excerpt">
+                  Start publish listings to show everyone the details and goodies of your establishment. </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="listar-feature-fix-bottom-padding listar-fix-feature-arrow-button-height"></div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-4 listar-feature-item-wrapper listar-feature-with-image listar-height-changed" data-aos="fade-zoom-in" data-aos-group="features" data-line-height="25.2px">
+        <div class="listar-feature-item listar-feature-has-link">
+
+          <a href="https://codepen.io/uiswarup/full/yLzypyY" target="_blank"></a>
+
+          <div class="listar-feature-item-inner">
+
+            <div class="listar-feature-right-border"></div>
+
+            <div class="listar-feature-block-content-wrapper">
+              <div class="listar-feature-icon-wrapper">
+                <div class="listar-feature-icon-inner">
+                  <div>
+                    <img alt="Customers" class="listar-image-icon" src="https://cdn-icons-png.flaticon.com/512/3414/3414151.png">
+                  </div>
+                </div>
+              </div>
+
+              <div class="listar-feature-content-wrapper" style="padding-top: 0px;">
+
+                <div class="listar-feature-item-title listar-feature-counter-added">
+                  <span><span>02</span>
+                    Customers </span>
+                </div>
+
+                <div class="listar-feature-item-excerpt">
+                  Easily find interesting places by local experts, save time by checking listing features. </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="listar-feature-fix-bottom-padding listar-fix-feature-arrow-button-height"></div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-4 listar-feature-item-wrapper listar-feature-with-image listar-height-changed" data-aos="fade-zoom-in" data-aos-group="features" data-line-height="25.2px">
+        <div class="listar-feature-item listar-feature-has-link">
+
+          <a href="https://codepen.io/uiswarup/full/yLzypyY" target="_blank"></a>
+
+          <div class="listar-feature-item-inner">
+
+            <div class="listar-feature-right-border"></div>
+
+            <div class="listar-feature-block-content-wrapper">
+              <div class="listar-feature-icon-wrapper">
+                <div class="listar-feature-icon-inner">
+                  <div>
+                    <img alt="Feedback" class="listar-image-icon" src="https://cdn-icons-png.flaticon.com/512/3412/3412953.png">
+                  </div>
+                </div>
+              </div>
+
+              <div class="listar-feature-content-wrapper" style="padding-top: 0px;">
+
+                <div class="listar-feature-item-title listar-feature-counter-added">
+                  <span><span>03</span>
+                    Feedback </span>
+                </div>
+
+                <div class="listar-feature-item-excerpt">
+                  Visitors discuss listings to share experiences, so businesses get reputation consolidated. </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+<div class="box">
+  <div class="inner">
+    <span>Founder Story</span>
+  </div>
+  <div class="inner">
+    <span>Founder Story</span>
+  </div>
+</div>
+
+<!-- HTML -->
+<div class="founder-container">
+  <!-- Left: Text -->
+  <div class="founder-text">    <p>
+      The visionaries behind Education Trust launched this initiative with a simple belief: every child deserves an inspiring and supportive education. With decades of experience in teaching and school leadership, they brought together a team committed to excellence, compassion, and community engagement.
+
+Under their guidance, our collective of schools has grown into a nurturing environment that balances academic rigor with creativity and character development. Their hands-on approach and emphasis on values remain central to our mission across all locations.
+    </p>
+  </div>
+
+  <!-- Right: Image -->
+  <div class="founder-image">
+    <img src="D:\BVK\prototype\founder.jpg" alt="Founder" />
+  </div>
+</div>
+
+
+
+</body>
+</html>
